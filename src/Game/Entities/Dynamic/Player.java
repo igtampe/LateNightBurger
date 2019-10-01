@@ -30,6 +30,9 @@ public class Player extends BaseDynamicEntity {
     }
 
     public void tick(){
+    	
+    	
+    	
         playerAnim.tick();
         if(xPos + width >= handler.getWidth()){
             direction = "left";

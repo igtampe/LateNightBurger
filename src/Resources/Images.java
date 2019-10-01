@@ -12,6 +12,8 @@ import java.io.IOException;
 public class Images {
 
 
+	public static BufferedImage[] ModernChair;
+	public static BufferedImage[] ModernMisc;
     public static BufferedImage[] butstart;
     public static BufferedImage title;
     public static BufferedImage floor;
@@ -27,10 +29,15 @@ public class Images {
     public static BufferedImage[] Options;
     public static ImageIcon icon;
     public static SpriteSheet kitchenSpriteSheet;
+    public static SpriteSheet ModernSpriteSheet;
     public static SpriteSheet kitchenCounterSpriteSheet;
     public static SpriteSheet burgerSpriteSheet;
     public static SpriteSheet chefSpriteSheet;
     public Images() {
+    	
+
+    	ModernChair = new BufferedImage[5];
+    	ModernMisc = new BufferedImage[3];
 
         butstart = new BufferedImage[3];
         Resume = new BufferedImage[2];
@@ -44,6 +51,7 @@ public class Images {
         try {
 
             kitchenSpriteSheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/sprite.png")));
+            ModernSpriteSheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/SF_Janitors_E.png")));
             kitchenCounterSpriteSheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/kitchen_cabinets_by_ayene_chan.png")));
             burgerSpriteSheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/burger.png")));
             chefSpriteSheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/chef.png")));
@@ -60,6 +68,19 @@ public class Images {
             kitchenChairTable[0] = kitchenSpriteSheet.crop(21,27,62,54);
             kitchenChairTable[1] = kitchenSpriteSheet.crop(108,14,30,35);
             kitchenChairTable[2] = kitchenSpriteSheet.crop(108,52,30,35);
+            
+            //This would be the table but I don't think we're going to use it
+            //ModernChair[0]=ModernSpriteSheet.crop(338, 564, 45, 36);
+            ModernChair[1]=ModernSpriteSheet.crop(8, 411, 28, 44);
+            ModernChair[2]=ModernSpriteSheet.crop(56, 413, 28, 43);
+            ModernChair[3]=ModernSpriteSheet.crop(100, 413, 30, 43);
+            ModernChair[4]=ModernSpriteSheet.crop(154, 413, 30, 43);
+            
+            ModernMisc[0]=ModernSpriteSheet.crop(240, 169, 96, 47);
+            ModernMisc[1]=ModernSpriteSheet.crop(147, 339, 42, 29);
+            ModernMisc[2]=ModernSpriteSheet.crop(4, 222, 91, 42);
+
+            
 
             people[0] = ImageIO.read(getClass().getResourceAsStream("/Sheets/People/Car_Designer3Female.png"));
             people[1] = ImageIO.read(getClass().getResourceAsStream("/Sheets/People/Doctor2Female.png"));
