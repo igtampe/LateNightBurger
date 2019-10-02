@@ -6,6 +6,7 @@ import Display.UI.UIImageButton;
 import Display.UI.UIManager;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 /**
  * Created by AlexVR on 7/1/2018.
@@ -43,6 +44,11 @@ public class PauseState extends State {
 
     @Override
     public void tick() {
+    	
+    	if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
+        	State.setState(handler.getGame().gameState);
+        }
+    	
         handler.getMouseManager().setUimanager(uiManager);
         uiManager.tick();
         count++;
