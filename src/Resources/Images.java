@@ -19,14 +19,19 @@ public class Images {
     public static BufferedImage floor;
     public static BufferedImage welcome;
     public static BufferedImage InactiveBG;
-    public static BufferedImage[] Resume;
+    public static BufferedImage WinPanel;
+    public static BufferedImage GameOverPanel;
     public static BufferedImage[] people;
     public static BufferedImage[] chef;
     public static BufferedImage[] kitchenChairTable;
     public static BufferedImage[] kitchenCounter;
     public static BufferedImage[] ingredients;
-    public static BufferedImage[] BTitle;
-    public static BufferedImage[] Options;
+    
+    public static BufferedImage[] Resume;
+    public static BufferedImage[] Quit;
+    public static BufferedImage[] Retry;
+    public static BufferedImage[] PAgain;
+    
     public static ImageIcon icon;
     public static SpriteSheet kitchenSpriteSheet;
     public static SpriteSheet ModernSpriteSheet;
@@ -40,9 +45,12 @@ public class Images {
     	ModernMisc = new BufferedImage[3];
 
         butstart = new BufferedImage[3];
-        Resume = new BufferedImage[2];
-        BTitle = new BufferedImage[2];
-        Options = new BufferedImage[2];
+        
+        Resume = new BufferedImage[3];
+        Quit = new BufferedImage[3];
+        PAgain = new BufferedImage[3];
+        Retry = new BufferedImage[3];
+        
         kitchenChairTable = new BufferedImage[3];
         people = new BufferedImage[9];
         kitchenCounter = new BufferedImage[8];
@@ -50,6 +58,22 @@ public class Images {
         chef = new BufferedImage[4];
         try {
 
+        	Resume[0]=ImageIO.read(getClass().getResourceAsStream("/Buttons/ResumeN.png"));
+        	Resume[1]=ImageIO.read(getClass().getResourceAsStream("/Buttons/ResumeH.png"));
+        	Resume[2]=ImageIO.read(getClass().getResourceAsStream("/Buttons/ResumeP.png"));
+        	
+        	Quit[0]=ImageIO.read(getClass().getResourceAsStream("/Buttons/QuitN.png"));
+        	Quit[1]=ImageIO.read(getClass().getResourceAsStream("/Buttons/QuitH.png"));
+        	Quit[2]=ImageIO.read(getClass().getResourceAsStream("/Buttons/QuitP.png"));
+
+        	PAgain[0]=ImageIO.read(getClass().getResourceAsStream("/Buttons/PAgainN.png"));
+        	PAgain[1]=ImageIO.read(getClass().getResourceAsStream("/Buttons/PAgainH.png"));
+        	PAgain[2]=ImageIO.read(getClass().getResourceAsStream("/Buttons/PagainP.png"));
+
+        	Retry[0]=ImageIO.read(getClass().getResourceAsStream("/Buttons/RetryN.png"));
+        	Retry[1]=ImageIO.read(getClass().getResourceAsStream("/Buttons/RetryH.png"));
+        	Retry[2]=ImageIO.read(getClass().getResourceAsStream("/Buttons/RetryP.png"));
+        	
             kitchenSpriteSheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/sprite.png")));
             ModernSpriteSheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/SF_Janitors_E.png")));
             kitchenCounterSpriteSheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/kitchen_cabinets_by_ayene_chan.png")));
@@ -59,6 +83,8 @@ public class Images {
 
             title = ImageIO.read(getClass().getResourceAsStream("/Sheets/title.jpg"));
             InactiveBG = ImageIO.read(getClass().getResourceAsStream("/Sheets/InactiveBG.png"));
+            WinPanel = ImageIO.read(getClass().getResourceAsStream("/Sheets/WinPanel.png"));
+            GameOverPanel = ImageIO.read(getClass().getResourceAsStream("/Sheets/GameOverPanel.png"));
             welcome = ImageIO.read(getClass().getResourceAsStream("/Sheets/Welcome.png"));
             floor = ImageIO.read(getClass().getResourceAsStream("/Sheets/floor.jpg"));
             butstart[0]= ImageIO.read(getClass().getResourceAsStream("/Buttons/NormBut.png"));//normbut

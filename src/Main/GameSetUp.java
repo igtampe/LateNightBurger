@@ -4,6 +4,8 @@ import Display.DisplayScreen;
 import Game.GameStates.GameState;
 import Game.GameStates.MenuState;
 import Game.GameStates.PauseState;
+import Game.GameStates.WinState;
+import Game.GameStates.GameOverState;
 import Game.GameStates.State;
 import Input.KeyManager;
 import Input.MouseManager;
@@ -43,6 +45,8 @@ public class GameSetUp implements Runnable {
     public State gameState;
     public State menuState;
     public State pauseState;
+    public State WinState;
+    public State GameOverState;
 
     //Res.music
     private MusicHandler musicHandler;
@@ -75,6 +79,8 @@ public class GameSetUp implements Runnable {
         gameState = new GameState(handler);
         menuState = new MenuState(handler);
         pauseState = new PauseState(handler);
+        WinState = new WinState(handler);
+        GameOverState = new GameOverState(handler);
 
         State.setState(menuState);
         musicHandler.restartBackground();

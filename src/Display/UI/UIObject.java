@@ -30,7 +30,7 @@ public abstract class UIObject {
 
 
     public void onMousePressed(MouseEvent e) {
-        active=true;
+        this.active=true;
     }
 
 

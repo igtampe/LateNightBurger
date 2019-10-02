@@ -9,7 +9,17 @@ import java.awt.image.BufferedImage;
 public class UIImageButton extends UIObject{
     private BufferedImage[] images;
     private ClickListlener clicker;
-
+    
+    /**
+     * UI Image Button makes a UI Image Button. <br>
+     * (AlexVR May have wanted to put some javadoc on this)
+     * @param x Position in X
+     * @param y Position in Y
+     * @param width Width of the coso
+     * @param height Height of the coso
+     * @param images Images (0 being inactive, 1 being hovered, and 2 being clicked)
+     * @param clicker The click listener (do not touch pls kthx)
+     */
     public UIImageButton(float x, float y, int width, int height, BufferedImage[] images,ClickListlener clicker ) {
         super(x, y, width, height);
         this.images=images;

@@ -12,12 +12,12 @@ import java.awt.event.KeyEvent;
 /**
  * Created by AlexVR on 7/1/2018.
  */
-public class PauseState extends State {
+public class WinState extends State {
 
     private int count = 0;
     private UIManager uiManager;
 
-    public PauseState(Handler handler) {
+    public WinState(Handler handler) {
         super(handler);
         uiManager = new UIManager(handler);
         handler.getMouseManager().setUimanager(uiManager);
@@ -33,17 +33,10 @@ public class PauseState extends State {
         }));
 
 
-
-
-
     }
 
     @Override
     public void tick() {
-    	
-    	if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
-        	State.setState(handler.getGame().gameState);
-        }
     	
         handler.getMouseManager().setUimanager(uiManager);
         uiManager.tick();
@@ -63,10 +56,8 @@ public class PauseState extends State {
     @Override
     public void render(Graphics g) {
     	g.drawImage(Images.InactiveBG,0,0,768,768,null);
-    	g.setFont(fonts.StateHeaderFont);
-    	g.setColor(fonts.StateHeaderFontColor);
-    	g.drawString(fonts.PauseTitle, fonts.PauseTitleX, fonts.PauseTitleY);
-        uiManager.Render(g);
+    	g.drawImage(Images.WinPanel,0,0,768,768,null);
+    	uiManager.Render(g);
 
     }
 }

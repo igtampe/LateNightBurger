@@ -1,6 +1,7 @@
 package Game.Entities.Dynamic;
 
 import Game.Entities.Static.*;
+import Game.GameStates.GameOverState;
 import Game.GameStates.State;
 import Main.Handler;
 import Resources.Animation;
@@ -45,9 +46,7 @@ public class Player extends BaseDynamicEntity {
 	public void OhNoSomeoneLeft() {
 		PeopleWhoHaveLeft++;
 		System.out.println("Oh no, someone left! The total number of people who have left is: " + PeopleWhoHaveLeft);
-		if (PeopleWhoHaveLeft==10) {
-			//go to the lose state which isn't programmed yet
-		}
+		if (PeopleWhoHaveLeft==10) {State.setState(handler.getGame().GameOverState);}
 	}
 
 	public void createBurger(){
@@ -109,8 +108,8 @@ public class Player extends BaseDynamicEntity {
 		}
 		
 		//THESE ARE FOR TEST PURPOSES ONLY AND SHOULD BE REMOVED UPON SUBMISSION OF THE PROJECT
-		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_F12)) {money++;}
-		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_F11)) {PeopleWhoHaveLeft++;}
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_F12)) {money++; if(money==50) {State.setState(handler.getGame().WinState);}}
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_F11)) {PeopleWhoHaveLeft++; if(PeopleWhoHaveLeft==10) {State.setState(handler.getGame().GameOverState);}}
 		
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_1)){
 			for(BaseCounter counter: handler.getWorld().Counters) {
@@ -163,9 +162,7 @@ public class Player extends BaseDynamicEntity {
 				
 				PeopleWhoHaveBeenServed++;
 				
-				if (money>=50) {
-					//go to the win state that isn't programmed yet
-				}
+				if (money>=50) {State.setState(handler.getGame().WinState);}
 				
 				
 				client.PleaseLeave();
