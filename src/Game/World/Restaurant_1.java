@@ -1,6 +1,7 @@
 package Game.World;
 
 import Game.Entities.Dynamic.Client;
+import Game.Entities.Dynamic.FloatText;
 import Game.Entities.Dynamic.Player;
 import Game.Entities.Static.*;
 import Main.Handler;
@@ -8,6 +9,8 @@ import Resources.Images;
 
 import java.awt.*;
 import java.util.ArrayList;
+
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Text;
 
 public class Restaurant_1 extends BaseWorld {
     private int count=0;
@@ -91,7 +94,17 @@ public class Restaurant_1 extends BaseWorld {
         for(Client client: clients){
             client.render(g);
         }
-
+        
+        try {
+        	for(FloatText TextThatsFloating: ThosePeskyTexts) {
+        		if (TextThatsFloating.isTrash()) {ThosePeskyTexts.remove(TextThatsFloating);}
+            	else {TextThatsFloating.render(g);}
+            }
+	
+		} catch (Exception e) {
+			//ok this happens but only once so its ok.
+		}
+        
         for(BaseCounter counter: Counters){
             counter.render(g);
         }

@@ -24,7 +24,7 @@ public class Player extends BaseDynamicEntity {
 	private boolean TimeForADistraction;
 	private double CurrentDistraction=-1;
 	private double MaxDistraction=-1;
-	private double DistractionCountDown=150;
+	private double DistractionCountDown=120;
 	private Random SpinTheWheel=new Random(); 
 	
 	
@@ -66,7 +66,7 @@ public class Player extends BaseDynamicEntity {
 			DistractionAvailable=true;
 			DistractionCountDown--;
 			if (DistractionCountDown==0) {
-				DistractionCountDown=150;
+				DistractionCountDown=120;
 				MaxDistraction=SpinTheWheel.nextInt(10)*100.0+1000;
 				CurrentDistraction=0.0;
 				DistractionAvailable=false;
@@ -109,6 +109,7 @@ public class Player extends BaseDynamicEntity {
 		}
 		
 		//THESE ARE FOR TEST PURPOSES ONLY AND SHOULD BE REMOVED UPON SUBMISSION OF THE PROJECT
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_F10)) {handler.getWorld().makemeappear();}
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_F12)) {money++; if(money==50) {State.setState(handler.getGame().WinState);}}
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_F11)) {PeopleWhoHaveLeft++; if(PeopleWhoHaveLeft==10) {State.setState(handler.getGame().GameOverState);}}
 		
@@ -181,6 +182,7 @@ public class Player extends BaseDynamicEntity {
 		
 		if (TimeForADistraction) {
 			System.out.println("DistractionTriggered");
+			handler.getWorld().ThosePeskyTexts.add(new FloatText(xPos, yPos, "Look over there!", 5));
 			TimeForADistraction=false;
 			DistractionAvailable=false;
 			
@@ -218,7 +220,7 @@ public class Player extends BaseDynamicEntity {
 		
 		if (DistractionAvailable) {
 			g.setColor(Color.pink);
-			g.fillRect(handler.getWidth()-200-5-15+2,5+15+2,(int) ((DistractionCountDown/150)*196),26);
+			g.fillRect(handler.getWidth()-200-5-15+2,5+15+2,(int) ((DistractionCountDown/120)*196),26);
 			g.setColor(Color.WHITE);
 			g.setFont(new Font("Arial", Font.BOLD, 15));
 			g.drawString("DISTRACTION (D)", handler.getWidth()-200-5-10, 25+15);
