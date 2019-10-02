@@ -2,6 +2,7 @@ package Game.GameStates;
 
 import Main.Handler;
 import Resources.Images;
+import Resources.fonts;
 import Display.UI.UIImageButton;
 import Display.UI.UIManager;
 
@@ -66,7 +67,10 @@ public class PauseState extends State {
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Images.Pause,0,0,800,600,null);
+    	g.drawImage(Images.InactiveBG,0,0,768,768,null);
+    	g.setFont(fonts.StateHeaderFont);
+    	g.setColor(fonts.StateHeaderFontColor);
+    	g.drawString(fonts.PauseTitle, fonts.PauseTitleX, fonts.PauseTitleY);
         uiManager.Render(g);
 
     }

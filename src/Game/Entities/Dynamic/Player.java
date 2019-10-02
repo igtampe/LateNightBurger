@@ -18,6 +18,7 @@ public class Player extends BaseDynamicEntity {
 	int speed = 4;
 	
 	private int PeopleWhoHaveLeft=0;
+	private int PeopleWhoHaveBeenServed=0;
 	private boolean DistractionAvailable=true;
 	private boolean TimeForADistraction;
 	private double CurrentDistraction=-1;
@@ -107,6 +108,10 @@ public class Player extends BaseDynamicEntity {
 			}
 		}
 		
+		//THESE ARE FOR TEST PURPOSES ONLY AND SHOULD BE REMOVED UPON SUBMISSION OF THE PROJECT
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_F12)) {money++;}
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_F11)) {PeopleWhoHaveLeft++;}
+		
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_1)){
 			for(BaseCounter counter: handler.getWorld().Counters) {
 				if (counter instanceof PlateCounter && counter.isInteractable()) {
@@ -155,9 +160,13 @@ public class Player extends BaseDynamicEntity {
 				else {money+=client.order.value;}
 				
 				money=(float) (Math.round(money*100.0)/100.0);
+				
+				PeopleWhoHaveBeenServed++;
+				
 				if (money>=50) {
 					//go to the win state that isn't programmed yet
 				}
+				
 				
 				client.PleaseLeave();
 				handler.getPlayer().createBurger();
