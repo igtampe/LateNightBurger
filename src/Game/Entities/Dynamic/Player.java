@@ -5,6 +5,7 @@ import Game.GameStates.GameOverState;
 import Game.GameStates.State;
 import Main.Handler;
 import Resources.Animation;
+import Resources.Dialogue;
 import Resources.Images;
 
 
@@ -27,6 +28,7 @@ public class Player extends BaseDynamicEntity {
 	private double DistractionCountDown=120;
 	private Random SpinTheWheel=new Random(); 
 	
+	private FloatText DistractionText = new FloatText();
 	
 	private Burger burger;
 	private String direction = "right";
@@ -108,10 +110,15 @@ public class Player extends BaseDynamicEntity {
 			}
 		}
 		
+		
+		/*
+		 * 
+		 */
 		//THESE ARE FOR TEST PURPOSES ONLY AND SHOULD BE REMOVED UPON SUBMISSION OF THE PROJECT
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_F10)) {handler.getWorld().makemeappear();}
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_F12)) {money++; if(money==50) {State.setState(handler.getGame().WinState);}}
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_F11)) {PeopleWhoHaveLeft++; if(PeopleWhoHaveLeft==10) {State.setState(handler.getGame().GameOverState);}}
+		//DO NOT FORGET!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_1)){
 			for(BaseCounter counter: handler.getWorld().Counters) {
@@ -181,8 +188,11 @@ public class Player extends BaseDynamicEntity {
 	public void render(Graphics g) {
 		
 		if (TimeForADistraction) {
-			System.out.println("DistractionTriggered");
-			handler.getWorld().ThosePeskyTexts.add(new FloatText(xPos, yPos, "Look over there!", 5));
+			//System.out.println("DistractionTriggered");
+			
+			DistractionText = handler.getWorld().DialogueBubble(xPos, 645, "Look, Over There!", Color.black, Dialogue.font);
+			
+			
 			TimeForADistraction=false;
 			DistractionAvailable=false;
 			
@@ -192,12 +202,10 @@ public class Player extends BaseDynamicEntity {
 			for(Client client: handler.getWorld().clients) {client.resetPatience();}
 		}
 		
-		if(direction=="right") {
-			g.drawImage(playerAnim.getCurrentFrame(), xPos, yPos, width, height, null);
-		}else{
-			g.drawImage(playerAnim.getCurrentFrame(), xPos+width, yPos, -width, height, null);
-
-		}
+		DistractionText.setXpos(xPos-25);
+		
+		if(direction=="right") {g.drawImage(playerAnim.getCurrentFrame(), xPos, yPos, width, height, null);}
+		else{g.drawImage(playerAnim.getCurrentFrame(), xPos+width, yPos, -width, height, null);}
 		
 		g.setColor(Color.green);
 		burger.render(g);

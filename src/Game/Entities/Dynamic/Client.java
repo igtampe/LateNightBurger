@@ -4,6 +4,7 @@ import Game.Entities.Static.Burger;
 import Game.Entities.Static.Item;
 import Game.Entities.Static.Order;
 import Main.Handler;
+import Resources.Dialogue;
 import Resources.Images;
 
 import java.awt.*;
@@ -11,6 +12,7 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public class Client extends BaseDynamicEntity {
+	private FloatText myDialogBox = new FloatText();
     int patience;
     Graphics2D g2D;
     int OGpatience;
@@ -34,24 +36,21 @@ public class Client extends BaseDynamicEntity {
             switch (ingredients){
                 case 1:
                     ((Burger) order.food).addIngredient(Item.lettuce);
-
                     break;
                 case 2:
                     ((Burger) order.food).addIngredient(Item.tomato);
-
                     break;
-
                 case 3:
                     ((Burger) order.food).addIngredient(Item.cheese);
-
                     break;
-
             }
 
         }
         ((Burger) order.food).addIngredient(Item.topBread);
 
+        myDialogBox=handler.getWorld().DialogueBubble(this.xPos, this.yPos, Dialogue.getGreeting(), Dialogue.color, Dialogue.font);
     }
+    
 
     public double getPatiencePercentage() {return (0.0+patience)/(0.0+OGpatience);}
     
@@ -74,9 +73,8 @@ public class Client extends BaseDynamicEntity {
         }
     }
     
-    public void PleaseLeave() {
-    	isLeaving=true;
-    }
+    public void PleaseLeave() {isLeaving=true;}
+    
     public void render(Graphics g){
     	 g2D= (Graphics2D) g;
 
@@ -84,15 +82,9 @@ public class Client extends BaseDynamicEntity {
         	g.drawImage(Images.tint(sprite,1.0f,((float)patience/(float)OGpatience),((float)patience/(float)OGpatience)),xPos,yPos,width,height,null);
             
         	double PatiencePercentage = (0.0+patience)/(0.0+OGpatience);
-        	if (PatiencePercentage>=.50) {
-        		g.setColor(Color.green);
-			}
-        	else if (PatiencePercentage>=.25) {
-        		g.setColor(Color.yellow);
-        	}
-        	else {
-        		g.setColor(Color.RED);
-        	}
+        	if (PatiencePercentage>=.50) {g.setColor(Color.green);}
+        	else if (PatiencePercentage>=.25) {g.setColor(Color.yellow);}
+        	else {g.setColor(Color.RED);}
         		
         	
         	
@@ -113,8 +105,13 @@ public class Client extends BaseDynamicEntity {
 
     public void UpdateXPos() {
     	xPos=(132*(Position-1))+10;
+    	myDialogBox.setXpos(xPos);
     	((Burger) order.food).x=(132*(Position-1))+10+50;
     }
+    
+    public void GotIncorrectFood() {
+    	if (myDialogBox.isTrash()) {myDialogBox=handler.getWorld().DialogueBubble(xPos, yPos, Dialogue.getIncorrect(), Dialogue.color, Dialogue.font);}
+    	}
     
     public void move(){
     	Position++;

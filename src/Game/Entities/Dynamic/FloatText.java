@@ -243,6 +243,30 @@ public class FloatText  {
 		this.fgcolor=Color.white;
 		this.font=new Font("Arial",Font.PLAIN,11);
 	}
+
+	/**
+	 * I lied, this is a dummy creator. it takes NO PARAMETERS! HAHAHAHAHAHAH!
+	 */
+	public FloatText() {
+		this.xpos=0;
+		this.ypos=0;
+		this.text="DUMMY";
+		this.timeout=0;
+
+		this.FadeOutTime=0;
+		this.MaxFadeOutTime=1;
+
+		this.Opacity=0;
+		this.InitialOpacity = 255;
+		
+		this.bgcolor=Color.BLACK;
+		this.isBackgrounded=false;
+		this.backgroundxdim=0;
+		this.backgroundydim=0;
+
+		this.fgcolor=Color.white;
+		this.font=new Font("Arial",Font.PLAIN,11);
+	}
 	
 
 	

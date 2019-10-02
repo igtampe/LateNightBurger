@@ -21,5 +21,4 @@ public class fonts {
 	//ON second thought I'm not going to find out how to center text on this coso so this is a no.
 //	public static String GameOverTitle="GAME OVER";
 //	public static String WinTitle="YOU WIN!";
-
 }

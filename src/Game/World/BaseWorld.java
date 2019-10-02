@@ -36,6 +36,12 @@ public class BaseWorld {
     	this.ThosePeskyTexts.add(floating);
     }
     
+    public FloatText DialogueBubble(int x, int y, String text,Color color, Font font) {
+    	FloatText floating = new FloatText(x,y,text,3,color,font);
+    	this.ThosePeskyTexts.add(floating);
+    	return floating;
+    }
+    
     public Client generateClient(){
         Client client =  new Client(10,485,handler,1);
         this.clients.add(client);
