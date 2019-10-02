@@ -10,13 +10,21 @@ import Resources.Images;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
 public class Player extends BaseDynamicEntity {
 	Item item;
 	float money;
-	int speed = 6;
+	int speed = 4;
 	
 	private int PeopleWhoHaveLeft=0;
+	private boolean DistractionAvailable=true;
+	private boolean TimeForADistraction;
+	private double CurrentDistraction=-1;
+	private double MaxDistraction=-1;
+	private double DistractionCountDown=150;
+	private Random SpinTheWheel=new Random(); 
+	
 	
 	private Burger burger;
 	private String direction = "right";
@@ -27,6 +35,11 @@ public class Player extends BaseDynamicEntity {
 		createBurger();
 		playerAnim = new Animation(120,Images.chef);
 	}
+	
+	public boolean ImSupposedToBeDistracted() {
+		return TimeForADistraction;
+	}
+	
 	
 	public void OhNoSomeoneLeft() {
 		PeopleWhoHaveLeft++;
@@ -46,7 +59,20 @@ public class Player extends BaseDynamicEntity {
 		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
 			State.setState(handler.getGame().pauseState);
 		}
-
+		
+		
+		if (CurrentDistraction==MaxDistraction) {
+			DistractionAvailable=true;
+			DistractionCountDown--;
+			if (DistractionCountDown==0) {
+				DistractionCountDown=150;
+				MaxDistraction=SpinTheWheel.nextInt(10)*100.0+1000;
+				CurrentDistraction=0.0;
+				DistractionAvailable=false;
+			}
+		}
+		else {CurrentDistraction++;}
+			
 
 
 		playerAnim.tick();
@@ -74,6 +100,13 @@ public class Player extends BaseDynamicEntity {
 				}
 			}
 		}
+		
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_D)){
+			if (DistractionAvailable) {
+				TimeForADistraction=true;
+			}
+		}
+		
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_1)){
 			for(BaseCounter counter: handler.getWorld().Counters) {
 				if (counter instanceof PlateCounter && counter.isInteractable()) {
@@ -138,6 +171,18 @@ public class Player extends BaseDynamicEntity {
 	}
 
 	public void render(Graphics g) {
+		
+		if (TimeForADistraction) {
+			System.out.println("DistractionTriggered");
+			TimeForADistraction=false;
+			DistractionAvailable=false;
+			
+			MaxDistraction=SpinTheWheel.nextInt(10)*100.0+1000;
+			CurrentDistraction=0.0;
+			
+			for(Client client: handler.getWorld().clients) {client.resetPatience();}
+		}
+		
 		if(direction=="right") {
 			g.drawImage(playerAnim.getCurrentFrame(), xPos, yPos, width, height, null);
 		}else{
@@ -148,7 +193,8 @@ public class Player extends BaseDynamicEntity {
 		g.setColor(Color.green);
 		burger.render(g);
 		g.setColor(Color.BLACK);
-		g.fillRect(5+15, 5+15, 200, 60);;
+		g.fillRect(5+15, 5+15, 200, 60);
+		g.fillRect(handler.getWidth()-200-5-15, 5+15, 200, 30);
 		
 		g.setColor(Color.green);
 		g.fillRect(5+15+2,5+15+2,(int) ((money/50)*196),26);
@@ -159,8 +205,29 @@ public class Player extends BaseDynamicEntity {
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("Arial", Font.BOLD, 15));
 		g.drawString("Money earned: $" + money, 10+15, 25+15);
+		g.setFont(new Font("Arial", Font.PLAIN, 15));
 		g.drawString("Customers Lost: " + PeopleWhoHaveLeft, 10+15, 25+15+25+5);
+		
+		
+		if (DistractionAvailable) {
+			g.setColor(Color.pink);
+			g.fillRect(handler.getWidth()-200-5-15+2,5+15+2,(int) ((DistractionCountDown/150)*196),26);
+			g.setColor(Color.WHITE);
+			g.setFont(new Font("Arial", Font.BOLD, 15));
+			g.drawString("DISTRACTION (D)", handler.getWidth()-200-5-10, 25+15);
+
+		}
+		else {
+			g.setColor(Color.magenta);
+			g.fillRect(handler.getWidth()-200-5-15+2,5+15+2,(int) ((CurrentDistraction/MaxDistraction)*196),26);
+			g.setColor(Color.WHITE);
+			g.drawString("Charging...", handler.getWidth()-200-5-10, 25+15);
+
+		}
+			
+		//
 	}
+	
 
 	public void interact(){
 		for(BaseCounter counter: handler.getWorld().Counters){

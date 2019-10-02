@@ -62,14 +62,11 @@ public class Client extends BaseDynamicEntity {
     	UpdateXPos();    	
     }
     
-    public void AddPercentageOfPatience(int Percentage) {
-    	patience+= (OGpatience*Percentage)/100;
-    } 
-    
-   
+    public void AddPercentageOfPatience(int Percentage) {patience+= (OGpatience*Percentage)/100;} 
+    public void resetPatience() {patience=OGpatience;}
     
     public void tick(){
-        patience--;
+    	patience--;
         if(patience==0){
             isLeaving=true;
             Position=-1;
