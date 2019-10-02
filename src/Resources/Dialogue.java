@@ -10,7 +10,7 @@ public class Dialogue {
 	public static Color color=Color.WHITE; 
 
 	private static Random randomizer = new Random();
-
+	
 	private static String[] AngryDialog= {
 			"I'm going to miss my flight!",
 			"Come on already!",
@@ -54,23 +54,71 @@ public class Dialogue {
 			"Send this back please",
 	};
 	
+	private static String[] LeaveWithoutBurgerDialog= {
+			"Damnit! I got to go.",
+			"That's it!",
+			"I've had enough!",
+			"I'll go somewhere else",
+			"Good God!",
+			"Thanks for wasting my time!"
+	};
+	
+	private static String[] AngryGotBurger= {
+			"Finally!",
+			"Took you long enough.",
+			"Delicious, finally some food.",
+			"Good god, finally",
+			"This better be good."
+	};
+	
+	private static String[] AnnoyedGotBurger= {
+			"Thank you",
+			"Ugh, Here keep the change.",
+			"Finally",
+			"Finally, thanks.",
+			"Ugh, thanks"
+	};
+
+	private static String[] HappyGotBurger= {
+			"Thank you so much!",
+			"Delicious!",
+			"Thanks for the food!",
+			"Wow, that was fast!",
+			"Thanks!"
+	};
+	
 	public static String getAngry() {
 		//this try catch is just CYA but JIC its nice to have it.
 		try {return AngryDialog[randomizer.nextInt(AngryDialog.length-1)];} 
-		catch (Exception e) {return "";}
-	}
+		catch (Exception e) {return "";}}
+	
 	public static String getAnnoyed() {
 		try {return AnnoyedDialog[randomizer.nextInt(AnnoyedDialog.length-1)];} 
-		catch (Exception e) {return "";}
-	}
+		catch (Exception e) {return "";}}
+	
 	public static String getGreeting() {
 		try {return GreetingDialog[randomizer.nextInt(GreetingDialog.length-1)];} 
-		catch (Exception e) {return "";}
-	}
+		catch (Exception e) {return "";}}
+	
 	public static String getIncorrect() {
 		try {return IncorrectFoodDialog[randomizer.nextInt(IncorrectFoodDialog.length-1)];} 
-		catch (Exception e) {return "";}
-	}
+		catch (Exception e) {return "";}}
+	
+	public static String getWithoutBurger() {
+		try {return LeaveWithoutBurgerDialog[randomizer.nextInt(LeaveWithoutBurgerDialog.length-1)];} 
+		catch (Exception e) {return "";}}
+	
+	public static String getAngryBurger() {
+		try {return AngryGotBurger[randomizer.nextInt(AngryGotBurger.length-1)];} 
+		catch (Exception e) {return "";}}
+	
+	public static String getAnnoyedBurger() {
+		try {return AnnoyedGotBurger[randomizer.nextInt(AnnoyedGotBurger.length-1)];} 
+		catch (Exception e) {return "";}}
+	
+	public static String getHappyBurger() {
+		try {return HappyGotBurger[randomizer.nextInt(HappyGotBurger.length-1)];} 
+		catch (Exception e) {return "";}}
 	
 
 

@@ -162,9 +162,8 @@ public class Player extends BaseDynamicEntity {
 		for(Client client: handler.getWorld().clients){
 			boolean matched = ((Burger)client.order.food).equals(handler.getCurrentBurger()) & (client.getPosition() == CustomerID);
 			if(matched){
-				client.AddPercentageOfPatience(25);
-				
-				if (client.getPatiencePercentage()>=.50) {money+=client.order.value+(.15*client.order.value);}
+				//For this the game needs to act as if we added the percentage
+				if ((client.getPatiencePercentage()+.25)>=.50) {money+=client.order.value+(.15*client.order.value);}
 				else {money+=client.order.value;}
 				
 				money=(float) (Math.round(money*100.0)/100.0);
@@ -173,12 +172,18 @@ public class Player extends BaseDynamicEntity {
 				
 				if (money>=50) {State.setState(handler.getGame().WinState);}
 				
-				
+				//We can't actually add it because the dialogue needs the original percentage.
 				client.PleaseLeave();
 				handler.getPlayer().createBurger();
 				System.out.println("Total money earned is: " + String.valueOf(money));
 				
 				return;
+			}
+			else {
+			if ((client.getPosition() == CustomerID)) {
+				client.GotIncorrectFood();
+				client.AddPercentageOfPatience(-10);
+			}
 			}
 			
 		}
