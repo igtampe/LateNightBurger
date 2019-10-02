@@ -71,7 +71,7 @@ public class Images {
 
         	PAgain[0]=ImageIO.read(getClass().getResourceAsStream("/Buttons/PAgainN.png"));
         	PAgain[1]=ImageIO.read(getClass().getResourceAsStream("/Buttons/PAgainH.png"));
-        	PAgain[2]=ImageIO.read(getClass().getResourceAsStream("/Buttons/PagainP.png"));
+        	PAgain[2]=ImageIO.read(getClass().getResourceAsStream("/Buttons/PAgainP.png"));
 
         	Retry[0]=ImageIO.read(getClass().getResourceAsStream("/Buttons/RetryN.png"));
         	Retry[1]=ImageIO.read(getClass().getResourceAsStream("/Buttons/RetryH.png"));
