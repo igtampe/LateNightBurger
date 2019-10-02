@@ -22,12 +22,13 @@ public class GameOverState extends State {
 		uiManager = new UIManager(handler);
 		handler.getMouseManager().setUimanager(uiManager);
 
-		uiManager.addObjects(new UIImageButton(56, 223, 256, 128, Images.Resume, () -> {
+		uiManager.addObjects(new UIImageButton(64, 432, 256, 128, Images.Retry, () -> {
             handler.getMouseManager().setUimanager(null);
+            handler.getGame().reStart();
             State.setState(handler.getGame().gameState);
         }));
 
-        uiManager.addObjects(new UIImageButton(56, (223+(64+16))+(64+16), 256, 128, Images.Quit, () -> {
+        uiManager.addObjects(new UIImageButton(448, 432, 256, 128, Images.Quit, () -> {
             handler.getMouseManager().setUimanager(null);
             State.setState(handler.getGame().menuState);
         }));
@@ -58,6 +59,11 @@ public class GameOverState extends State {
 	public void render(Graphics g) {
 		g.drawImage(Images.InactiveBG,0,0,768,768,null);
 		g.drawImage(Images.GameOverPanel,0,0,768,768,null);
+		g.setFont(fonts.StatisticsFont);
+		g.setColor(Color.WHITE);
+		g.drawString(Integer.toString(handler.getPlayer().GetPeopleServed()), fonts.StatisticsX, fonts.ServedY);
+		g.drawString(Integer.toString(handler.getPlayer().GetPeopleLeft()), fonts.StatisticsX, fonts.LostY);
+		g.drawString("$"+Float.toString(handler.getPlayer().GiveMeTheMoney()), fonts.StatisticsX, fonts.MoneyY);
 		uiManager.Render(g);
 
 	}

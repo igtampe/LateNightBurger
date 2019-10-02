@@ -38,9 +38,10 @@ public class Player extends BaseDynamicEntity {
 		playerAnim = new Animation(120,Images.chef);
 	}
 	
-	public boolean ImSupposedToBeDistracted() {
-		return TimeForADistraction;
-	}
+	public boolean ImSupposedToBeDistracted() {return TimeForADistraction;}
+	public int GetPeopleServed() {return PeopleWhoHaveBeenServed;}
+	public int GetPeopleLeft() {return PeopleWhoHaveLeft;}
+	public float GiveMeTheMoney() {return money;}
 	
 	
 	public void OhNoSomeoneLeft() {
