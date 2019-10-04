@@ -12,21 +12,22 @@ import java.awt.*;
 /**
  * Created by AlexVR on 7/1/2018.
  */
-public class MenuState extends State {
+public class PreStartState extends State {
 
     private UIManager uiManager;
 
-    public MenuState(Handler handler) {
+    public PreStartState(Handler handler) {
         super(handler);
         uiManager = new UIManager(handler);
         handler.getMouseManager().setUimanager(uiManager);
 
 
-        uiManager.addObjects(new UIImageButton(handler.getWidth()/2-(128), handler.getHeight()/2-32, 256, 128, Images.Start, new ClickListlener() {
+        uiManager.addObjects(new UIImageButton(handler.getWidth()/2-(128), 7*(handler.getHeight()/8)-48, 256, 128, Images.Start, new ClickListlener() {
             @Override
             public void onClick() {
                 handler.getMouseManager().setUimanager(null);
-                State.setState(handler.getGame().PreStartState);
+                handler.getGame().reStart();
+                State.setState(handler.getGame().gameState);
             }
         }));
     }
@@ -42,7 +43,8 @@ public class MenuState extends State {
     public void render(Graphics g) {
         g.setColor(Color.darkGray);
         g.fillRect(0,0,handler.getWidth(),handler.getHeight());
-        g.drawImage(Images.title,0,0,handler.getWidth(),handler.getHeight(),null);
+        g.drawImage(Images.InactiveBG,0,0,handler.getWidth(),handler.getHeight(),null);
+        g.drawImage(Images.TutorialPanel,0,0,handler.getWidth(),handler.getHeight(),null);
         uiManager.Render(g);
 
     }

@@ -97,16 +97,20 @@ public class Player extends BaseDynamicEntity {
 			interactionCounter++;
 		}
 		if(handler.getKeyManager().fattbut){
+			//Fattbut is C. I don't know who decided to name it that.
 			for(BaseCounter counter: handler.getWorld().Counters){
-				if (counter instanceof EmptyCounter && counter.isInteractable()){
-					createBurger();
-				}
+				if (counter instanceof PlateCounter && counter.isInteractable()){createBurger();}
+				if (counter instanceof EmptyCounter && counter.isInteractable()){createBurger();}
 			}
 		}
 		
-		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_D)){
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_E)){
 			if (DistractionAvailable) {
-				TimeForADistraction=true;
+				for(BaseCounter counter: handler.getWorld().Counters){
+					if (counter instanceof PlateCounter && counter.isInteractable()){
+						TimeForADistraction=true;
+					}
+				}
 			}
 		}
 		
@@ -194,59 +198,60 @@ public class Player extends BaseDynamicEntity {
 		
 		if (TimeForADistraction) {
 			//System.out.println("DistractionTriggered");
-			
 			DistractionText = handler.getWorld().DialogueBubble(xPos, 645, "Look, Over There!", Color.black, Dialogue.font);
-			
-			
 			TimeForADistraction=false;
 			DistractionAvailable=false;
-			
 			MaxDistraction=SpinTheWheel.nextInt(10)*100.0+1000;
 			CurrentDistraction=0.0;
-			
 			for(Client client: handler.getWorld().clients) {client.resetPatience();}
 		}
 		
 		DistractionText.setXpos(xPos-25);
 		
-		if(direction=="right") {g.drawImage(playerAnim.getCurrentFrame(), xPos, yPos, width, height, null);}
-		else{g.drawImage(playerAnim.getCurrentFrame(), xPos+width, yPos, -width, height, null);}
-		
 		g.setColor(Color.green);
 		burger.render(g);
+
 		g.setColor(Color.BLACK);
-		g.fillRect(5+15, 5+15, 200, 60);
-		g.fillRect(handler.getWidth()-200-5-15, 5+15, 200, 30);
+		g.fillRect(5+15, 5+15, 200, 60); //Render the status box
+		//g.fillRect(handler.getWidth()-200-5-15, 5+15, 200, 30); //Render the distraction box
 		
+		
+		//Money Progress bar
 		g.setColor(Color.green);
 		g.fillRect(5+15+2,5+15+2,(int) ((money/50)*196),26);
 		
+		//People Lost Progress Bar
 		g.setColor(Color.red);
 		g.fillRect(5+15+2,5+15+2+30,(int)((PeopleWhoHaveLeft/10.0)*196),26);
 		
+		//Status Box Text
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("Arial", Font.BOLD, 15));
 		g.drawString("Money earned: $" + money, 10+15, 25+15);
 		g.setFont(new Font("Arial", Font.PLAIN, 15));
 		g.drawString("Customers Lost: " + PeopleWhoHaveLeft, 10+15, 25+15+25+5);
 		
-		
+		g.setColor(Color.BLACK);
+		g.fillRect(2, handler.getHeight()-100, 96, 20); //Render the distraction box but on top of the counter
 		if (DistractionAvailable) {
 			g.setColor(Color.pink);
-			g.fillRect(handler.getWidth()-200-5-15+2,5+15+2,(int) ((DistractionCountDown/120)*196),26);
+			g.fillRect(4,handler.getHeight()-100+2,(int) ((DistractionCountDown/120)*92),16);
 			g.setColor(Color.WHITE);
-			g.setFont(new Font("Arial", Font.BOLD, 15));
-			g.drawString("DISTRACTION (D)", handler.getWidth()-200-5-10, 25+15);
+			g.setFont(new Font("Arial", Font.BOLD, 12));
+			g.drawString("DISTRACT (E)", 6, handler.getHeight()-100+15);
 
 		}
 		else {
 			g.setColor(Color.magenta);
-			g.fillRect(handler.getWidth()-200-5-15+2,5+15+2,(int) ((CurrentDistraction/MaxDistraction)*196),26);
+			g.fillRect(4,handler.getHeight()-100+2,(int) ((CurrentDistraction/MaxDistraction)*92),16);
 			g.setColor(Color.WHITE);
-			g.drawString("Charging...", handler.getWidth()-200-5-10, 25+15);
+			g.drawString("Charging...", 6, handler.getHeight()-100+15);
 
 		}
 			
+		if(direction=="right") {g.drawImage(playerAnim.getCurrentFrame(), xPos, yPos, width, height, null);}
+		else{g.drawImage(playerAnim.getCurrentFrame(), xPos+width, yPos, -width, height, null);}
+		
 		//
 	}
 	

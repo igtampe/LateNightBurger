@@ -47,6 +47,7 @@ public class GameSetUp implements Runnable {
     public State pauseState;
     public State WinState;
     public State GameOverState;
+    public State PreStartState;
 
     //Res.music
     private MusicHandler musicHandler;
@@ -81,6 +82,7 @@ public class GameSetUp implements Runnable {
         pauseState = new PauseState(handler);
         WinState = new WinState(handler);
         GameOverState = new GameOverState(handler);
+        PreStartState = new Game.GameStates.PreStartState(handler);
 
         State.setState(menuState);
         musicHandler.restartBackground();

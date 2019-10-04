@@ -18,6 +18,7 @@ public class Images {
     public static BufferedImage floor;
     public static BufferedImage welcome;
     public static BufferedImage InactiveBG;
+    public static BufferedImage TutorialPanel;
     public static BufferedImage WinPanel;
     public static BufferedImage GameOverPanel;
     public static BufferedImage[] people;
@@ -88,6 +89,7 @@ public class Images {
             InactiveBG = ImageIO.read(getClass().getResourceAsStream("/Sheets/InactiveBG.png"));
             WinPanel = ImageIO.read(getClass().getResourceAsStream("/Sheets/WinPanel.png"));
             GameOverPanel = ImageIO.read(getClass().getResourceAsStream("/Sheets/GameOverPanel.png"));
+            TutorialPanel = ImageIO.read(getClass().getResourceAsStream("/Sheets/TutorialOverlay.png"));
             welcome = ImageIO.read(getClass().getResourceAsStream("/Sheets/Welcome.png"));
             floor = ImageIO.read(getClass().getResourceAsStream("/Sheets/floor.jpg"));
             

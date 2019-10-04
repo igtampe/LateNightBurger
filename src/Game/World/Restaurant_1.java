@@ -64,6 +64,7 @@ public class Restaurant_1 extends BaseWorld {
 		return this.clients.size() >=capacity;
 	}
 	public void render(Graphics g){
+		
 		g.drawImage(Background,0,0,handler.getWidth(), handler.getHeight(),null);
 		g.drawImage(Images.welcome,5,150,43,82,null);
 
@@ -91,13 +92,9 @@ public class Restaurant_1 extends BaseWorld {
 		g.drawImage(Images.ModernChair[4],handler.getWidth()/3+96,312+150,52,62,null);
 		g.drawImage(Images.ModernChair[3],handler.getWidth()/3-52,312+150,52,62,null);
 
-		for(Client client: clients){
-			client.render(g);
-		}
-
-		for(BaseCounter counter: Counters){
-			counter.render(g);
-		}
+		for(Client client: clients){client.render(g);}
+		for(BaseCounter counter: Counters){counter.render(g);}
+		
 		handler.getPlayer().render(g);
 
 		try {for(FloatText TextThatsFloating: ThosePeskyTexts) {
