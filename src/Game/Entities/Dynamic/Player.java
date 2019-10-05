@@ -99,8 +99,17 @@ public class Player extends BaseDynamicEntity {
 		if(handler.getKeyManager().fattbut){
 			//Fattbut is C. I don't know who decided to name it that.
 			for(BaseCounter counter: handler.getWorld().Counters){
-				if (counter instanceof EmptyCounter && counter.isInteractable()){createBurger();}
+				if (counter instanceof PlateCounter && counter.isInteractable()){createBurger();}
 			}
+		}
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_SHIFT)) {
+			speed--;
+			
+		}
+		
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ENTER)) {
+			speed++;
+			
 		}
 		
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_E)){

@@ -19,6 +19,8 @@ public class Item {
     public static Item burger = new Item(Images.tint(Images.ingredients[1],0.5f,0.5f,0.5f), "patty");
     public static Item botBread = new Item(Images.ingredients[5], "bottomBun");
     public static Item topBread = new Item(Images.ingredients[0], "topBun");
+    public static Item bacon = new Item(Images.ingredients[7], "bacon");
+
 
     public boolean equals(Item i) {
         return i.name.equals(name);
