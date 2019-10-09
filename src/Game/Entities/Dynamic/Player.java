@@ -107,32 +107,16 @@ public class Player extends BaseDynamicEntity {
 				if (counter instanceof PlateCounter && counter.isInteractable()){createBurger();}
 			}
 		}
-		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_SHIFT)) {
-			speed--;
-
-		}
-
-		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ENTER)) {
-			speed++;
-
-		}
-
-		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_E)){
-			if (DistractionAvailable) {
-				for(BaseCounter counter: handler.getWorld().Counters){
-					if (counter instanceof SpecialCounter && counter.isInteractable()){
-						TimeForADistraction=true;
-					}
-				}
-			}
-		}
-
+		
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_SHIFT)) {speed--;}
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ENTER)) {speed++;}
 
 		/*
 		 * 
 		 */
 		//THESE ARE FOR TEST PURPOSES ONLY AND SHOULD BE REMOVED UPON SUBMISSION OF THE PROJECT
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_F1)) {DrawBars=!DrawBars;}
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_F9)) {CurrentDistraction=MaxDistraction;}
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_F10)) {handler.getWorld().makemeappear();}
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_F12)) {money=money+10; if(money==50) {State.setState(handler.getGame().WinState);}}
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_F11)) {PeopleWhoHaveLeft++; if(PeopleWhoHaveLeft==10) {State.setState(handler.getGame().GameOverState);}}
@@ -277,6 +261,9 @@ public class Player extends BaseDynamicEntity {
 		for(BaseCounter counter: handler.getWorld().Counters){
 			if (counter.isInteractable()){
 				counter.interact();
+				//Since interact only allows you to add burger parts, we have to introduce this check
+				//hey at least we're not doing this twice like before.
+				if (DistractionAvailable && counter instanceof SpecialCounter) {TimeForADistraction=true;}
 			}
 		}
 	}
