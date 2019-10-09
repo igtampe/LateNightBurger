@@ -1,7 +1,6 @@
 package Game.Entities.Dynamic;
 
 import Game.Entities.Static.*;
-import Game.GameStates.GameOverState;
 import Game.GameStates.State;
 import Main.Handler;
 import Resources.Animation;
@@ -14,7 +13,6 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-import com.sun.webkit.ContextMenu.ShowContext;
 
 public class Player extends BaseDynamicEntity {
 	Item item;
@@ -29,6 +27,8 @@ public class Player extends BaseDynamicEntity {
 	private double CurrentDistraction=-1;
 	private double MaxDistraction=-1;
 	private double DistractionCountDown=120;
+	private boolean TimeToRing=false;
+	private int CustomerToRing=1;
 	private Random SpinTheWheel=new Random(); 
 
 	private FloatText DistractionText = new FloatText();
@@ -111,9 +111,6 @@ public class Player extends BaseDynamicEntity {
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_SHIFT)) {speed--;}
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ENTER)) {speed++;}
 
-		/*
-		 * 
-		 */
 		//THESE ARE FOR TEST PURPOSES ONLY AND SHOULD BE REMOVED UPON SUBMISSION OF THE PROJECT
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_F1)) {DrawBars=!DrawBars;}
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_F9)) {CurrentDistraction=MaxDistraction;}
@@ -123,38 +120,30 @@ public class Player extends BaseDynamicEntity {
 		//DO NOT FORGET!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_1)){
-			for(BaseCounter counter: handler.getWorld().Counters) {
-				if (counter instanceof PlateCounter && counter.isInteractable()) {
-					ringCustomer(1);
-				}
-			}
+			TimeToRing=true;
+			CustomerToRing=1;
 		}
 		else if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_2)){
-			for(BaseCounter counter: handler.getWorld().Counters) {
-				if (counter instanceof PlateCounter && counter.isInteractable()) {
-					ringCustomer(2);
-				}
-			}
+			TimeToRing=true;
+			CustomerToRing=2;
 		}
 		else if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_3)){
-			for(BaseCounter counter: handler.getWorld().Counters) {
-				if (counter instanceof PlateCounter && counter.isInteractable()) {
-					ringCustomer(3);
-				}
-			}
+			TimeToRing=true;
+			CustomerToRing=3;
 		}
 		else if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_4)){
-			for(BaseCounter counter: handler.getWorld().Counters) {
-				if (counter instanceof PlateCounter && counter.isInteractable()) {
-					ringCustomer(4);
-				}
-			}
+			TimeToRing=true;
+			CustomerToRing=4;
 		}
 		else if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_5)){
+			TimeToRing=true;
+			CustomerToRing=5;
+		}
+		
+		if (TimeToRing) {
+			TimeToRing=false;
 			for(BaseCounter counter: handler.getWorld().Counters) {
-				if (counter instanceof PlateCounter && counter.isInteractable()) {
-					ringCustomer(5);
-				}
+				if (counter instanceof PlateCounter && counter.isInteractable()) {ringCustomer(CustomerToRing);}
 			}
 		}
 
