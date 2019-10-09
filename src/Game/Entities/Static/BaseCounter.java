@@ -9,14 +9,19 @@ public class BaseCounter extends BaseStaticEntity {
 
     public Item item;
     public static int DEFAULTCOUNTERWIDTH = 96;
+    
+    public boolean DistractionAvailable=true;
+	
+    public boolean isDistractionAvailable() {return DistractionAvailable;}
+	public void setDistractionAvailable(boolean distractionAvailable) {DistractionAvailable = distractionAvailable;}
+
+    
 
     BaseCounter(BufferedImage sprite, int xPos, int yPos,int width,int height, Handler handler) {
         super(sprite, xPos, yPos,width, height, handler);
     }
 
-    public boolean isInteractable(){
-        return handler.getPlayer().xPos + width/2 >= xPos && handler.getPlayer().xPos + width/2 < xPos + width;
-    }
+    public boolean isInteractable(){return handler.getPlayer().xPos + width/2 >= xPos && handler.getPlayer().xPos + width/2 < xPos + width;}
 
     public void interact(){
         if (item != null) {

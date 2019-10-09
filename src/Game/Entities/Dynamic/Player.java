@@ -14,22 +14,25 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
+import com.sun.webkit.ContextMenu.ShowContext;
+
 public class Player extends BaseDynamicEntity {
 	Item item;
 	float money;
 	int speed = 4;
-	
+
 	private int PeopleWhoHaveLeft=0;
 	private int PeopleWhoHaveBeenServed=0;
 	private boolean DistractionAvailable=true;
 	private boolean TimeForADistraction;
+	private boolean DrawBars=true;
 	private double CurrentDistraction=-1;
 	private double MaxDistraction=-1;
 	private double DistractionCountDown=120;
 	private Random SpinTheWheel=new Random(); 
-	
+
 	private FloatText DistractionText = new FloatText();
-	
+
 	private Burger burger;
 	private String direction = "right";
 	private int interactionCounter = 0;
@@ -39,13 +42,13 @@ public class Player extends BaseDynamicEntity {
 		createBurger();
 		playerAnim = new Animation(120,Images.chef);
 	}
-	
+
 	public boolean ImSupposedToBeDistracted() {return TimeForADistraction;}
 	public int GetPeopleServed() {return PeopleWhoHaveBeenServed;}
 	public int GetPeopleLeft() {return PeopleWhoHaveLeft;}
 	public float GiveMeTheMoney() {return money;}
-	
-	
+
+
 	public void OhNoSomeoneLeft() {
 		PeopleWhoHaveLeft++;
 		System.out.println("Oh no, someone left! The total number of people who have left is: " + PeopleWhoHaveLeft);
@@ -59,11 +62,13 @@ public class Player extends BaseDynamicEntity {
 
 	public void tick(){
 
+		handler.getWorld().Counters[8].setDistractionAvailable(DistractionAvailable);
+
 		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
 			State.setState(handler.getGame().pauseState);
 		}
-		
-		
+
+
 		if (CurrentDistraction==MaxDistraction) {
 			DistractionAvailable=true;
 			DistractionCountDown--;
@@ -75,7 +80,7 @@ public class Player extends BaseDynamicEntity {
 			}
 		}
 		else {CurrentDistraction++;}
-			
+
 
 
 		playerAnim.tick();
@@ -104,14 +109,14 @@ public class Player extends BaseDynamicEntity {
 		}
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_SHIFT)) {
 			speed--;
-			
+
 		}
-		
+
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ENTER)) {
 			speed++;
-			
+
 		}
-		
+
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_E)){
 			if (DistractionAvailable) {
 				for(BaseCounter counter: handler.getWorld().Counters){
@@ -121,17 +126,18 @@ public class Player extends BaseDynamicEntity {
 				}
 			}
 		}
-		
-		
+
+
 		/*
 		 * 
 		 */
 		//THESE ARE FOR TEST PURPOSES ONLY AND SHOULD BE REMOVED UPON SUBMISSION OF THE PROJECT
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_F1)) {DrawBars=!DrawBars;}
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_F10)) {handler.getWorld().makemeappear();}
-		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_F12)) {money++; if(money==50) {State.setState(handler.getGame().WinState);}}
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_F12)) {money=money+10; if(money==50) {State.setState(handler.getGame().WinState);}}
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_F11)) {PeopleWhoHaveLeft++; if(PeopleWhoHaveLeft==10) {State.setState(handler.getGame().GameOverState);}}
 		//DO NOT FORGET!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		
+
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_1)){
 			for(BaseCounter counter: handler.getWorld().Counters) {
 				if (counter instanceof PlateCounter && counter.isInteractable()) {
@@ -177,92 +183,95 @@ public class Player extends BaseDynamicEntity {
 				//For this the game needs to act as if we added the percentage
 				if ((client.getPatiencePercentage()+.25)>=.50) {money+=client.order.value+(.15*client.order.value);}
 				else {money+=client.order.value;}
-				
+
 				money=(float) (Math.round(money*100.0)/100.0);
-				
+
 				PeopleWhoHaveBeenServed++;
-				
+
 				if (money>=50) {State.setState(handler.getGame().WinState);}
-				
+
 				//We can't actually add it because the dialogue needs the original percentage.
 				client.PleaseLeave();
 				handler.getPlayer().createBurger();
 				System.out.println("Total money earned is: " + String.valueOf(money));
-				
+
 				return;
 			}
 			else {
-			if ((client.getPosition() == CustomerID)) {
-				client.GotIncorrectFood();
-				client.AddPercentageOfPatience(-10);
+				if ((client.getPosition() == CustomerID)) {
+					client.GotIncorrectFood();
+					client.AddPercentageOfPatience(-10);
+				}
 			}
-			}
-			
+
 		}
-		
+
 	}
 
 	public void render(Graphics g) {
-		
+
 		if (TimeForADistraction) {
 			//System.out.println("DistractionTriggered");
-			DistractionText = handler.getWorld().DialogueBubble(xPos, 645, "Look, Over There!", Color.black, Dialogue.font);
+			DistractionText = handler.getWorld().DialogueBubble(xPos, 645, "Here, have some!", Color.black, Dialogue.font);
 			TimeForADistraction=false;
 			DistractionAvailable=false;
 			MaxDistraction=SpinTheWheel.nextInt(10)*100.0+1000;
 			CurrentDistraction=0.0;
 			for(Client client: handler.getWorld().clients) {client.resetPatience();}
 		}
-		
+
 		DistractionText.setXpos(xPos-25);
-		
+
 		g.setColor(Color.green);
 		burger.render(g);
 
-		g.setColor(Color.BLACK);
-		g.fillRect(5+15, 5+15, 200, 60); //Render the status box
-		//g.fillRect(handler.getWidth()-200-5-15, 5+15, 200, 30); //Render the distraction box
-		
-		
-		//Money Progress bar
-		g.setColor(Color.green);
-		g.fillRect(5+15+2,5+15+2,(int) ((money/50)*196),26);
-		
-		//People Lost Progress Bar
-		g.setColor(Color.red);
-		g.fillRect(5+15+2,5+15+2+30,(int)((PeopleWhoHaveLeft/10.0)*196),26);
-		
-		//Status Box Text
-		g.setColor(Color.WHITE);
-		g.setFont(new Font("Arial", Font.BOLD, 15));
-		g.drawString("Money earned: $" + money, 10+15, 25+15);
-		g.setFont(new Font("Arial", Font.PLAIN, 15));
-		g.drawString("Customers Lost: " + PeopleWhoHaveLeft, 10+15, 25+15+25+5);
-		
-		g.setColor(Color.BLACK);
-		g.fillRect(2, handler.getHeight()-100, 96, 20); //Render the distraction box but on top of the counter
-		if (DistractionAvailable) {
-			g.setColor(Color.pink);
-			g.fillRect(4,handler.getHeight()-100+2,(int) ((DistractionCountDown/120)*92),16);
-			g.setColor(Color.WHITE);
-			g.setFont(new Font("Arial", Font.BOLD, 12));
-			g.drawString("DISTRACT (E)", 6, handler.getHeight()-100+15);
+		if (DrawBars) {
 
-		}
-		else {
-			g.setColor(Color.magenta);
-			g.fillRect(4,handler.getHeight()-100+2,(int) ((CurrentDistraction/MaxDistraction)*92),16);
-			g.setColor(Color.WHITE);
-			g.drawString("Charging...", 6, handler.getHeight()-100+15);
+			g.setColor(Color.BLACK);
+			g.fillRect(5+15, 5+15, 200, 60); //Render the status box
+			//g.fillRect(handler.getWidth()-200-5-15, 5+15, 200, 30); //Render the distraction box
 
+
+			//Money Progress bar
+			g.setColor(Color.green);
+			g.fillRect(5+15+2,5+15+2,(int) ((money/50)*196),26);
+
+			//People Lost Progress Bar
+			g.setColor(Color.red);
+			g.fillRect(5+15+2,5+15+2+30,(int)((PeopleWhoHaveLeft/10.0)*196),26);
+
+			//Status Box Text
+			g.setColor(Color.WHITE);
+			g.setFont(new Font("Arial", Font.BOLD, 15));
+			g.drawString("Money earned: $" + money, 10+15, 25+15);
+			g.setFont(new Font("Arial", Font.PLAIN, 15));
+			g.drawString("Customers Lost: " + PeopleWhoHaveLeft, 10+15, 25+15+25+5);
+
+			g.setColor(Color.BLACK);
+			g.fillRect(handler.getWidth()-100, handler.getHeight()-100, 96, 20); //Render the distraction box but on top of the counter
+			if (DistractionAvailable) {
+				g.setColor(Color.pink);
+				g.fillRect(handler.getWidth()-100+2,handler.getHeight()-100+2,(int) ((DistractionCountDown/120)*92),16);
+				g.setColor(Color.WHITE);
+				g.setFont(new Font("Arial", Font.BOLD, 12));
+				g.drawString("DISTRACT (E)", handler.getWidth()-100+4, handler.getHeight()-100+15);
+
+			}
+			else {
+				g.setColor(Color.magenta);
+				g.fillRect(handler.getWidth()-100+2,handler.getHeight()-100+2,(int) ((CurrentDistraction/MaxDistraction)*92),16);
+				g.setColor(Color.WHITE);
+				g.drawString("Charging...", handler.getWidth()-100+4, handler.getHeight()-100+15);
+
+			}
 		}
-			
+
 		if(direction=="right") {g.drawImage(playerAnim.getCurrentFrame(), xPos, yPos, width, height, null);}
 		else{g.drawImage(playerAnim.getCurrentFrame(), xPos+width, yPos, -width, height, null);}
-		
+
 		//
 	}
-	
+
 
 	public void interact(){
 		for(BaseCounter counter: handler.getWorld().Counters){

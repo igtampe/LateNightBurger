@@ -53,7 +53,7 @@ public class Images {
         
         kitchenChairTable = new BufferedImage[3];
         people = new BufferedImage[9];
-        kitchenCounter = new BufferedImage[9];
+        kitchenCounter = new BufferedImage[10];
         ingredients = new BufferedImage[8];
         chef = new BufferedImage[4];
         try {
@@ -85,7 +85,7 @@ public class Images {
             chefSpriteSheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/chef.png")));
 
 
-            title = ImageIO.read(getClass().getResourceAsStream("/Sheets/title.jpg"));
+            title = ImageIO.read(getClass().getResourceAsStream("/Sheets/title.png"));
             InactiveBG = ImageIO.read(getClass().getResourceAsStream("/Sheets/InactiveBG.png"));
             WinPanel = ImageIO.read(getClass().getResourceAsStream("/Sheets/WinPanel.png"));
             GameOverPanel = ImageIO.read(getClass().getResourceAsStream("/Sheets/GameOverPanel.png"));
@@ -129,6 +129,7 @@ public class Images {
             kitchenCounter[6] = kitchenCounterSpriteSheet.crop(0,133,32,50);//plates
             kitchenCounter[7] = kitchenCounterSpriteSheet.crop(0,63,34,56);//buns
             kitchenCounter[8] = kitchenCounterSpriteSheet.crop(33,77,31,43);//bacon
+            kitchenCounter[9] = kitchenCounterSpriteSheet.crop(129,129,31,54);//The Special Counter
 
 
             ingredients[0] = burgerSpriteSheet.crop(25, 16, 112, 43); // top bun
