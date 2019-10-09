@@ -21,6 +21,8 @@ public class Player extends BaseDynamicEntity {
 	float insMoney;
 	int speed = 4;
 
+	private boolean InspectorAngry=false;
+	private boolean InspectorLeft=false;
 	private int PeopleWhoHaveLeft=0;
 	private int PeopleWhoHaveBeenServed=0;
 	private boolean DistractionAvailable=true;
@@ -49,7 +51,13 @@ public class Player extends BaseDynamicEntity {
 	public int GetPeopleServed() {return PeopleWhoHaveBeenServed;}
 	public int GetPeopleLeft() {return PeopleWhoHaveLeft;}
 	public float GiveMeTheMoney() {return money;}
-
+	
+	public void SetInspectorAngry(boolean Angry) {InspectorAngry=Angry;}
+	public boolean InspectorLeftAngry() {return InspectorAngry;}
+	
+	public void SetInspectorLeft(boolean Whatever) {InspectorLeft=Whatever;}
+	public boolean InspectorHasLeft() {return InspectorLeft;}
+	
 
 	public void OhNoSomeoneLeft() {
 		PeopleWhoHaveLeft++;
@@ -195,12 +203,7 @@ public class Player extends BaseDynamicEntity {
 
 	}
 	
-	public float totalMoney(){
-		money = money/2;
-		
-		return money;
-		
-	}
+	public void TakeHalfMoney(){money = money/2;}
 
 	public void render(Graphics g) {
 

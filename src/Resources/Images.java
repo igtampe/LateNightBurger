@@ -114,17 +114,17 @@ public class Images {
 
             
 
-//            people[0] = ImageIO.read(getClass().getResourceAsStream("/Sheets/People/Car_Designer3Female.png"));
-//            people[1] = ImageIO.read(getClass().getResourceAsStream("/Sheets/People/Doctor2Female.png"));
-//            people[2] = ImageIO.read(getClass().getResourceAsStream("/Sheets/People/Freedom_Fighter2Male.png"));
-//            people[3] = ImageIO.read(getClass().getResourceAsStream("/Sheets/People/Hipster.png"));
-//            people[4] = ImageIO.read(getClass().getResourceAsStream("/Sheets/People/Lawyer2Male.png"));
-//            people[5] = ImageIO.read(getClass().getResourceAsStream("/Sheets/People/Mad_Scientist3Female.png"));
-//            people[6] = ImageIO.read(getClass().getResourceAsStream("/Sheets/People/Programmer2Male.png"));
-//            people[7] = ImageIO.read(getClass().getResourceAsStream("/Sheets/People/Songwriter3Male.png"));
-            people[0] = ImageIO.read(getClass().getResourceAsStream("/Sheets/People/Weather_Reporter2Female.png"));
-            people[1] = ImageIO.read(getClass().getResourceAsStream("/Sheets/People/Inspector.png")); //inspector
-            people[2] = ImageIO.read(getClass().getResourceAsStream("/Sheets/People/AntiV.png")); //Anti V customer
+            people[0] = ImageIO.read(getClass().getResourceAsStream("/Sheets/People/Car_Designer3Female.png"));
+            people[1] = ImageIO.read(getClass().getResourceAsStream("/Sheets/People/Doctor2Female.png"));
+            people[2] = ImageIO.read(getClass().getResourceAsStream("/Sheets/People/Freedom_Fighter2Male.png"));
+            people[3] = ImageIO.read(getClass().getResourceAsStream("/Sheets/People/Hipster.png"));
+            people[4] = ImageIO.read(getClass().getResourceAsStream("/Sheets/People/Lawyer2Male.png"));
+            people[5] = ImageIO.read(getClass().getResourceAsStream("/Sheets/People/Mad_Scientist3Female.png"));
+            people[6] = ImageIO.read(getClass().getResourceAsStream("/Sheets/People/Programmer2Male.png"));
+            people[7] = ImageIO.read(getClass().getResourceAsStream("/Sheets/People/Songwriter3Male.png"));
+            people[8] = ImageIO.read(getClass().getResourceAsStream("/Sheets/People/Weather_Reporter2Female.png"));
+            people[9] = ImageIO.read(getClass().getResourceAsStream("/Sheets/People/Inspector.png")); //inspector
+            people[10] = ImageIO.read(getClass().getResourceAsStream("/Sheets/People/AntiV.png")); //Anti V customer
 
 
 
