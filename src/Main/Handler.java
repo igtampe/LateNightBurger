@@ -37,7 +37,7 @@ public class Handler {
 //        height= (DEFAULTHEIGHT/2) +(DEFAULTHEIGHT/4);
 //        width = BaseCounter.DEFAULTCOUNTERWIDTH*8;
 
-        width = 768;
+        width = 864;
         height= 768;
 
     }

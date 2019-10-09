@@ -18,8 +18,7 @@ public class PlateCounter extends BaseCounter {
             g2.setColor(Color.RED);
             g.setFont(new Font("ARIAL", Font.BOLD, 20));
             g2.drawString("SERVE (1-5)",xPos + width/2 - 32,yPos -25+10);
-            g.setFont(new Font("ComicSans", Font.ITALIC, 32));
-            g2.drawString("Clear (C)",xPos + width/2 - 32,yPos -30);
+            g2.drawString("CLEAR (C)",xPos + width/2 - 32,yPos -40);
 //            g.drawImage(item.sprite,50,30,null);
         }
     }
