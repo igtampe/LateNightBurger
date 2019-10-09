@@ -121,7 +121,7 @@ public class Player extends BaseDynamicEntity {
 			}
 		}
 		
-		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_SHIFT)) {speed--;}
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_SHIFT) && !(speed==0)) {speed--;}
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ENTER)) {speed++;}
 		
 		
