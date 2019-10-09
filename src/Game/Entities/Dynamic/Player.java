@@ -120,7 +120,7 @@ public class Player extends BaseDynamicEntity {
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_E)){
 			if (DistractionAvailable) {
 				for(BaseCounter counter: handler.getWorld().Counters){
-					if (counter instanceof PlateCounter && counter.isInteractable()){
+					if (counter instanceof SpecialCounter && counter.isInteractable()){
 						TimeForADistraction=true;
 					}
 				}
