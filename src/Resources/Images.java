@@ -54,13 +54,8 @@ public class Images {
         Retry = new BufferedImage[3];
         
         kitchenChairTable = new BufferedImage[3];
-<<<<<<< HEAD
         people = new BufferedImage[11];
-        kitchenCounter = new BufferedImage[9];
-=======
-        people = new BufferedImage[9];
         kitchenCounter = new BufferedImage[10];
->>>>>>> branch 'master' of https://github.com/uprm-ciic4010-f19/pa-2-dinner-dash-quickfood.git
         ingredients = new BufferedImage[8];
         chef = new BufferedImage[4];
         try {

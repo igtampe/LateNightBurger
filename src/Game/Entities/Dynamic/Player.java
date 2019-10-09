@@ -113,33 +113,8 @@ public class Player extends BaseDynamicEntity {
 			}
 		}
 		
-<<<<<<< HEAD
-		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ENTER)) {
-			speed++;
-			
-		}
-		
-		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_E)){
-			if (DistractionAvailable) {
-				for(BaseCounter counter: handler.getWorld().Counters){
-					if (counter instanceof PlateCounter && counter.isInteractable()){
-						TimeForADistraction=true;
-					}
-				}
-			}
-		}
-		
-		
-		
-		
-		/*
-		 * 
-		 */
-=======
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_SHIFT)) {speed--;}
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ENTER)) {speed++;}
-
->>>>>>> branch 'master' of https://github.com/uprm-ciic4010-f19/pa-2-dinner-dash-quickfood.git
 		//THESE ARE FOR TEST PURPOSES ONLY AND SHOULD BE REMOVED UPON SUBMISSION OF THE PROJECT
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_F1)) {DrawBars=!DrawBars;}
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_F9)) {CurrentDistraction=MaxDistraction;}
@@ -192,7 +167,7 @@ public class Player extends BaseDynamicEntity {
 				PeopleWhoHaveBeenServed++;
 
 				if (money>=50) {State.setState(handler.getGame().WinState);}
-<<<<<<< HEAD
+
 				
 				if(client.inspectorHappy == true && client.inspectorAlert() == true) {
 					client.patience2 = (int) (client.patience + (client.patience*0.12));
@@ -202,9 +177,6 @@ public class Player extends BaseDynamicEntity {
 				}
 				
 				
-=======
-
->>>>>>> branch 'master' of https://github.com/uprm-ciic4010-f19/pa-2-dinner-dash-quickfood.git
 				//We can't actually add it because the dialogue needs the original percentage.
 				client.PleaseLeave();
 				handler.getPlayer().createBurger();
