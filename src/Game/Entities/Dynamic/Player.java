@@ -7,6 +7,7 @@ import Main.Handler;
 import Resources.Animation;
 import Resources.Dialogue;
 import Resources.Images;
+import Game.Entities.Dynamic.Client;
 
 
 import java.awt.*;
@@ -17,6 +18,7 @@ import java.util.Random;
 public class Player extends BaseDynamicEntity {
 	Item item;
 	float money;
+	float insMoney;
 	int speed = 4;
 	
 	private int PeopleWhoHaveLeft=0;
@@ -50,12 +52,15 @@ public class Player extends BaseDynamicEntity {
 		PeopleWhoHaveLeft++;
 		System.out.println("Oh no, someone left! The total number of people who have left is: " + PeopleWhoHaveLeft);
 		if (PeopleWhoHaveLeft==10) {State.setState(handler.getGame().GameOverState);}
+		
 	}
 
 	public void createBurger(){
 		burger = new Burger(handler.getWidth() - 110, 100, 100, 50);
 
 	}
+	
+	
 
 	public void tick(){
 
@@ -123,6 +128,8 @@ public class Player extends BaseDynamicEntity {
 		}
 		
 		
+		
+		
 		/*
 		 * 
 		 */
@@ -175,14 +182,23 @@ public class Player extends BaseDynamicEntity {
 			boolean matched = ((Burger)client.order.food).equals(handler.getCurrentBurger()) & (client.getPosition() == CustomerID);
 			if(matched){
 				//For this the game needs to act as if we added the percentage
-				if ((client.getPatiencePercentage()+.25)>=.50) {money+=client.order.value+(.15*client.order.value);}
+				if ((client.getPatiencePercentage()+.25)>=.50) {
+					money+=client.order.value+(.15*client.order.value);}
 				else {money+=client.order.value;}
 				
 				money=(float) (Math.round(money*100.0)/100.0);
 				
 				PeopleWhoHaveBeenServed++;
-				
+
 				if (money>=50) {State.setState(handler.getGame().WinState);}
+				
+				if(client.inspectorHappy == true && client.inspectorAlert() == true) {
+					client.patience2 = (int) (client.patience + (client.patience*0.12));
+				} else if(client.inspectorHappy == true && client.inspectorAlert() == false) {
+					client.patience2 = (int) (client.patience + (client.patience*0.10));
+
+				}
+				
 				
 				//We can't actually add it because the dialogue needs the original percentage.
 				client.PleaseLeave();
@@ -199,6 +215,13 @@ public class Player extends BaseDynamicEntity {
 			}
 			
 		}
+		
+	}
+	
+	public float totalMoney(){
+		money = money/2;
+		
+		return money;
 		
 	}
 

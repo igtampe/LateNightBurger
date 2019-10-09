@@ -8,6 +8,7 @@ import Resources.Dialogue;
 import Resources.Images;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
@@ -16,13 +17,20 @@ public class Client extends BaseDynamicEntity {
 	int patience;
 	Graphics2D g2D;
 	int OGpatience;
+	int inspectorLeft;
 	Order order;
 	int Position;
+	int patience2;
 	public boolean isLeaving = false;
 	private boolean ComplainedAngry=false;
 	private boolean ComplainedAnnoyed=false;
+	public boolean inspectorAlert=false;
+	public boolean inspectorMad=false;
+	public boolean inspectorHappy=false;
+	public boolean antiVAlert=false;
 	public Client(int xPos, int yPos, Handler handler, int pos) {
-		super(Images.people[new Random().nextInt(9)], xPos, yPos,64,72, handler);
+		super(Images.people[new Random().nextInt(3)], xPos, yPos,64,72, handler);
+		//super(Images.people[9], xPos, yPos,64,72, handler);
 		Position=pos;
 		patience = new Random().nextInt(120*60)+60*60;
 		OGpatience = patience;
@@ -55,6 +63,14 @@ public class Client extends BaseDynamicEntity {
 		((Burger) order.food).addIngredient(Item.topBread);
 
 		myDialogBox=handler.getWorld().DialogueBubble(this.xPos, this.yPos, Dialogue.getGreeting(), Dialogue.color, Dialogue.font);
+		
+//		if(inspectorMad == true) {
+//			patience2 = (int) (patience - (patience*0.06));
+//			
+//			System.out.println("Patience: " + patience);
+//			System.out.println("Patience 2: " + patience2);
+//		}
+		
 	}
 
 
@@ -72,13 +88,41 @@ public class Client extends BaseDynamicEntity {
 
 	public void tick(){
 		patience--;
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_L)) {
+			patience = 0;
+		} //debugging key, test purposes
 		if(patience==0){
 			isLeaving=true;
 			handler.getWorld().DialogueBubble(xPos, yPos, Dialogue.getWithoutBurger(), Dialogue.color, Dialogue.font);
 			Position=-1;
 			handler.getPlayer().OhNoSomeoneLeft();
+			if(inspectorAlert() == true) {
+				inspectorMad = true;
+				System.out.println("STRANGER DANGER");
+				handler.getPlayer().totalMoney();
+			
+			}
 		}
+		
 	}
+	public boolean inspectorAlert(){
+		if(sprite == Images.people[1]) {
+			inspectorAlert=true;
+		} else {
+			inspectorAlert=false;
+		}
+		return inspectorAlert;
+	}
+	
+	public boolean antiVAlert(){
+		if(sprite == Images.people[10]) {
+			antiVAlert=true;
+		} else {
+			antiVAlert=false;
+		}
+		return antiVAlert;
+	}
+
 
 	public void PleaseLeave() {
 		isLeaving=true;
@@ -86,6 +130,12 @@ public class Client extends BaseDynamicEntity {
 		double PatiencePercentage = (0.0+patience)/(0.0+OGpatience);
 		if (PatiencePercentage>=.50) {
 			handler.getWorld().DialogueBubble(xPos, yPos, Dialogue.getHappyBurger(), Dialogue.color, Dialogue.font);
+			if(inspectorAlert() == true) {
+				inspectorHappy = true;
+				System.out.println("Patience: " + patience);
+				System.out.println("Patience 2: " + patience2);
+
+			}
 		}
 		else if (PatiencePercentage>=.25) {
 			handler.getWorld().DialogueBubble(xPos, yPos, Dialogue.getAnnoyedBurger(), Dialogue.color, Dialogue.font);
