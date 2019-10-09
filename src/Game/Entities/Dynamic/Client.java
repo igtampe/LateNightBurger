@@ -28,6 +28,7 @@ public class Client extends BaseDynamicEntity {
 	public boolean inspectorMad=false;
 	public boolean inspectorHappy=false;
 	public boolean antiVAlert=false;
+	private double antiVOldPatience = 100.00;
 	public Client(int xPos, int yPos, Handler handler, int pos) {
 		super(Images.people[new Random().nextInt(11)], xPos, yPos,64,72, handler);
 		Position=pos;
@@ -94,6 +95,22 @@ public class Client extends BaseDynamicEntity {
 
 	public void tick(){
 		patience--;
+		if(antiVAlert && antiVOldPatience-getPatiencePercentage()>=.08 ) {
+			Random Randomizer = new Random();
+			int Direction=(int) Math.pow(-1, Randomizer.nextInt(4));
+			antiVOldPatience=getPatiencePercentage();
+			for(Client client: handler.getWorld().clients) {
+				boolean matched = (client.Position == Position + Direction);
+				if(matched) {
+					client.AddPercentageOfPatience(-4);
+					if (myDialogBox.isTrash()) {myDialogBox=handler.getWorld().DialogueBubble(xPos, yPos, Dialogue.getAntiVDialogue(),
+							Dialogue.color, Dialogue.font);
+
+					}
+
+				}
+			}
+		}
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_L)) {
 			patience = 0;
 		} //debugging key, test purposes
@@ -135,18 +152,17 @@ public class Client extends BaseDynamicEntity {
 
 	public void PleaseLeave() {
 		isLeaving=true;
-		
-		double PatiencePercentage = (0.0+patience)/(0.0+OGpatience);
-		if (PatiencePercentage>=.50) {
+
+		if (getPatiencePercentage()>=.50) {
 			handler.getWorld().DialogueBubble(xPos, yPos, Dialogue.getHappyBurger(), Dialogue.color, Dialogue.font);
 		}
-		else if (PatiencePercentage>=.25) {
+		else if (getPatiencePercentage()>=.25) {
 			handler.getWorld().DialogueBubble(xPos, yPos, Dialogue.getAnnoyedBurger(), Dialogue.color, Dialogue.font);
 		}
 		else {
 			handler.getWorld().DialogueBubble(xPos, yPos, Dialogue.getAngryBurger(), Dialogue.color, Dialogue.font);
 		}
-		
+
 		if (inspectorAlert) {
 			handler.getPlayer().SetInspectorAngry(false);
 			handler.getPlayer().SetInspectorLeft(true);
