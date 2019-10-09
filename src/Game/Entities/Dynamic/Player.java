@@ -169,7 +169,6 @@ public class Player extends BaseDynamicEntity {
 			if(matched){
 				//For this the game needs to act as if we added the percentage
 				float FinalValueOfBurger=client.order.value;
-				
 				money+=FinalValueOfBurger;
 				if ((client.getPatiencePercentage()+.25)>=.50) {FinalValueOfBurger+=(.15*client.order.value);}
 				if (burger.getCookedPercentage()<=.53 && burger.getCookedPercentage()>=.48) {FinalValueOfBurger+=(.12*client.order.value);}
@@ -192,7 +191,9 @@ public class Player extends BaseDynamicEntity {
 				//We can't actually add it because the dialogue needs the original percentage.
 				client.PleaseLeave();
 				handler.getPlayer().createBurger();
-				System.out.println("Total money earned is: " + String.valueOf(money));
+				
+				//Add 25% patience to everyone
+				for(Client MorePatiencePlease: handler.getWorld().clients){MorePatiencePlease.AddPercentageOfPatience(25);}
 
 				return;
 			}
