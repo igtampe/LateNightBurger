@@ -7,6 +7,7 @@ import java.util.Random;
 
 public class Burger extends Food{
 
+	private double CookedPercentage=0.0;
     public int x, y, width,height;
     public ArrayList<Item> ingredients = new ArrayList<>();
     ArrayList<BufferedImage> sprite = new ArrayList<>();
@@ -48,4 +49,8 @@ public class Burger extends Food{
         }
         return true;
     }
+
+
+	public double getCookedPercentage() {return CookedPercentage;}
+	public void setCookedPercentage(double cookedPercentage) {CookedPercentage = cookedPercentage;}
 }

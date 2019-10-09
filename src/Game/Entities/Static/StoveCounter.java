@@ -8,6 +8,7 @@ import java.awt.*;
 public class StoveCounter extends BaseCounter {
 
     int cookTime = 85;
+    double CookedPercentage = 0.0;
     int burntTime = 6*60;
     int timeInStove = 0;
     boolean cooking = false;
@@ -22,13 +23,13 @@ public class StoveCounter extends BaseCounter {
     public void tick() {
         if(cooking){
             timeInStove++;
+            CookedPercentage=timeInStove/burntTime;
             tint-=.002;
-            if(tint<=0){
-                tint=0;
-            }
+            if(tint<=0){tint=0;}
         }
         if(timeInStove>burntTime){
             burnt=true;
+            CookedPercentage=1;
         }
     }
 
@@ -41,6 +42,7 @@ public class StoveCounter extends BaseCounter {
             if(timeInStove<burntTime && timeInStove>cookTime){
                 item.sprite = Images.tint(item.sprite,tint,tint,tint);
                 handler.getPlayer().getBurger().addIngredient(item);
+                handler.getPlayer().getBurger().setCookedPercentage(CookedPercentage);
                 cooking=false;
                 burnt=false;
                 timeInStove=0;

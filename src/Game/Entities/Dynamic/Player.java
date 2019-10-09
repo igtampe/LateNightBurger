@@ -123,6 +123,8 @@ public class Player extends BaseDynamicEntity {
 		
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_SHIFT)) {speed--;}
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ENTER)) {speed++;}
+		
+		
 		//THESE ARE FOR TEST PURPOSES ONLY AND SHOULD BE REMOVED UPON SUBMISSION OF THE PROJECT
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_F1)) {DrawBars=!DrawBars;}
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_F9)) {CurrentDistraction=MaxDistraction;}
@@ -166,10 +168,12 @@ public class Player extends BaseDynamicEntity {
 			boolean matched = ((Burger)client.order.food).equals(handler.getCurrentBurger()) & (client.getPosition() == CustomerID);
 			if(matched){
 				//For this the game needs to act as if we added the percentage
-				if ((client.getPatiencePercentage()+.25)>=.50) {
-					money+=client.order.value+(.15*client.order.value);}
-				else {money+=client.order.value;}
-
+				float FinalValueOfBurger=client.order.value;
+				
+				money+=FinalValueOfBurger;
+				if ((client.getPatiencePercentage()+.25)>=.50) {FinalValueOfBurger+=(.15*client.order.value);}
+				if (burger.getCookedPercentage()<=.53 && burger.getCookedPercentage()>=.48) {FinalValueOfBurger+=(.12*client.order.value);}
+				
 				money=(float) (Math.round(money*100.0)/100.0);
 
 				PeopleWhoHaveBeenServed++;
