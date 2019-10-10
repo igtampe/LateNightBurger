@@ -90,7 +90,10 @@ public class Client extends BaseDynamicEntity {
 		UpdateXPos();    	
 	}
 
-	public void AddPercentageOfPatience(int Percentage) {patience+= (OGpatience*Percentage)/100;} 
+	public void AddPercentageOfPatience(int Percentage) {
+		patience+= (OGpatience*Percentage)/100;
+		if (patience>=OGpatience) {patience=OGpatience;}
+	} 
 	public void resetPatience() {patience=OGpatience;}
 
 	public void tick(){
