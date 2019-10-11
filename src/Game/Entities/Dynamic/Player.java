@@ -66,20 +66,13 @@ public class Player extends BaseDynamicEntity {
 		
 	}
 
-	public void createBurger(){
-		burger = new Burger(handler.getWidth() - 110, 100, 100, 50);
-
-	}
+	public void createBurger(){burger = new Burger(handler.getWidth() - 110, 100, 100, 50);}
 	
-	
-
 	public void tick(){
 
 		handler.getWorld().Counters[8].setDistractionAvailable(DistractionAvailable);
 
-		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
-			State.setState(handler.getGame().pauseState);
-		}
+		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {State.setState(handler.getGame().pauseState);}
 
 
 		if (CurrentDistraction==MaxDistraction) {
@@ -125,13 +118,13 @@ public class Player extends BaseDynamicEntity {
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ENTER)) {speed++;}
 		
 		
-		//THESE ARE FOR TEST PURPOSES ONLY AND SHOULD BE REMOVED UPON SUBMISSION OF THE PROJECT
+		//ACTUALLY, IMMA LEAVE THESE HERE
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_F1)) {DrawBars=!DrawBars;}
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_F9)) {CurrentDistraction=MaxDistraction;}
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_F10)) {handler.getWorld().makemeappear();}
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_F12)) {money=money+10; if(money>=50) {State.setState(handler.getGame().WinState);}}
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_F11)) {PeopleWhoHaveLeft++; if(PeopleWhoHaveLeft==10) {State.setState(handler.getGame().GameOverState);}}
-		//DO NOT FORGET!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		//THE TAs WILL PROBABLY APPRECIATE IT.
 
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_1)){
 			TimeToRing=true;
@@ -217,6 +210,7 @@ public class Player extends BaseDynamicEntity {
 			DistractionText = handler.getWorld().DialogueBubble(xPos, 645, "Here, have some!", Color.black, Dialogue.font);
 			TimeForADistraction=false;
 			DistractionAvailable=false;
+			DistractionCountDown=120; //we didn't reset the distraction countdown. This caused a bug, and now that bug has been squashed.
 			MaxDistraction=SpinTheWheel.nextInt(10)*100.0+1000;
 			CurrentDistraction=0.0;
 			for(Client client: handler.getWorld().clients) {client.resetPatience();}
