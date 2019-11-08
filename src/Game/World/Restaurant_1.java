@@ -10,7 +10,6 @@ import Resources.Images;
 import java.awt.*;
 import java.util.ArrayList;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Text;
 
 public class Restaurant_1 extends BaseWorld {
 	private int count=0;
